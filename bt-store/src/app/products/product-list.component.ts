@@ -10,7 +10,7 @@ export class ProductionListComponent {
     pageTitle = 'Product List';
     imageWidth = 50;
     imageMargin: number = 2;
-    showImages: boolean = false;
+    showImage: boolean = false;
     listFilter: string = 'sneak';
     products: IProduct[] = [
         {
@@ -35,7 +35,11 @@ export class ProductionListComponent {
         }
     ];
 
+    ngOnInit(): void {
+        console.log('In OnInit');
+    }
+
     toggleImages(): void {
-        this.showImages = !this.showImages;
+        this.showImage = !this.showImage;
     }
 }
