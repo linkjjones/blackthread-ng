@@ -8,6 +8,7 @@ export class ProductionListComponent {
     pageTitle = 'Product List';
     imageWidth = 50;
     imageMargin: number = 2;
+    showImages: boolean = false;
     products: any[] = [
         {
             "productId": 2,
@@ -30,4 +31,8 @@ export class ProductionListComponent {
             "imageUrl": "assets/images/jumper.jpg"
         }
     ];
+
+    toggleImages(): void {
+        this.showImages = !this.showImages;
+    }
 }
