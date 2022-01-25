@@ -5,7 +5,9 @@ import { Component } from "@angular/core";
     templateUrl: './product-list.component.html'
 })
 export class ProductionListComponent {
-    pageTitle: string = 'Product List';
+    pageTitle = 'Product List';
+    imageWidth = 50;
+    imageMargin: number = 2;
     products: any[] = [
         {
             "productId": 2,
@@ -15,7 +17,7 @@ export class ProductionListComponent {
             "description": "Basketball shoes that make you jump higher and run faster.",
             "price": 144000.07,
             "starRating": 5.0,
-            "imageUrl": "assets/images/hot_sneaks.png"
+            "imageUrl": "assets/images/hot_sneaks.jpg"
         },
         {
             "productId": 3,
@@ -25,7 +27,7 @@ export class ProductionListComponent {
             "description": "Nice cool jumper",
             "price": 70.70,
             "starRating": 4.8,
-            "imageUrl": "assets/images/jumper.png"
+            "imageUrl": "assets/images/jumper.jpg"
         }
     ];
 }
