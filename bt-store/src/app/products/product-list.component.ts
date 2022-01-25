@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { IProduct } from "./product";
 
 @Component({
     selector: 'pm-products',
@@ -10,7 +11,7 @@ export class ProductionListComponent {
     imageMargin: number = 2;
     showImages: boolean = false;
     listFilter: string = 'sneak';
-    products: any[] = [
+    products: IProduct[] = [
         {
             "productId": 2,
             "productName": "Hot Sneaks",
