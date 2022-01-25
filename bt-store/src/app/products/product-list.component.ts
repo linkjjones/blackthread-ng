@@ -9,6 +9,7 @@ export class ProductionListComponent {
     imageWidth = 50;
     imageMargin: number = 2;
     showImages: boolean = false;
+    listFilter: string = 'sneak';
     products: any[] = [
         {
             "productId": 2,
