@@ -11,7 +11,18 @@ export class ProductionListComponent {
     imageWidth = 50;
     imageMargin: number = 2;
     showImage: boolean = false;
-    listFilter: string = 'sneak';
+    
+    private _listFilter: string = '';
+    get listFilter(): string {
+        return this._listFilter;
+    }
+    set listFilter(value: string) {
+        this._listFilter = value;
+        console.log('in setter: ', value);
+        this.filteredProducts = this.performFilter(value);
+    }
+
+    filteredProducts: IProduct[] = [];
     products: IProduct[] = [
         {
             "productId": 2,
@@ -36,7 +47,13 @@ export class ProductionListComponent {
     ];
 
     ngOnInit(): void {
-        console.log('In OnInit');
+        this.listFilter = 'sneaks';
+    }
+
+    performFilter(filterBy: string): IProduct[] {
+        filterBy = filterBy.toLowerCase();
+        return this.products.filter((product: IProduct) => 
+            product.productName.toLowerCase().includes(filterBy));
     }
 
     toggleImages(): void {
