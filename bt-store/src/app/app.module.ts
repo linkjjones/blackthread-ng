@@ -5,12 +5,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ProductionListComponent } from './products/product-list.component';
 import { ReplaceStringWithStringPipe } from './shared/replace-string-with-string.pipe';
+import { StarComponent } from './shared/star.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductionListComponent,
-    ReplaceStringWithStringPipe
+    ReplaceStringWithStringPipe,
+    StarComponent
   ],
   imports: [
     BrowserModule,
