@@ -59,4 +59,8 @@ export class ProductionListComponent {
     toggleImages(): void {
         this.showImage = !this.showImage;
     }
+
+    onRatingClicked(message: string): void {
+        this.pageTitle = 'Product List ' + message;
+    }
 }
