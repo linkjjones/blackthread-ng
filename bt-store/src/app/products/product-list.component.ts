@@ -7,7 +7,7 @@ import { ProductService } from "./product.service";
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.css']
 })
-export class ProductionListComponent implements OnInit, OnDestroy {
+export class ProductListComponent implements OnInit, OnDestroy {
 constructor(private productService: ProductService) {}
     
     pageTitle = 'Product List';

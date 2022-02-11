@@ -8,23 +8,22 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { ProductDetailComponent } from './products/product-detail.component';
 import { ProductDetailGuard } from './products/product-detail.guard';
-import { ProductionListComponent } from './products/product-list.component';
+import { ProductListComponent } from './products/product-list.component';
 import { ReplaceStringWithStringPipe } from './shared/replace-string-with-string.pipe';
 import { StarComponent } from './shared/star.component';
+import { ProductModule } from './products/product.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductionListComponent,
-    ReplaceStringWithStringPipe,
-    StarComponent
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: 'products', component: ProductionListComponent },
+      { path: 'products', component: ProductListComponent },
       {
         path: 'products/:id',
         canActivate: [ProductDetailGuard],
@@ -33,7 +32,8 @@ import { StarComponent } from './shared/star.component';
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-    ])
+    ]),
+    ProductModule
   ],
   providers: [],
   bootstrap: [
