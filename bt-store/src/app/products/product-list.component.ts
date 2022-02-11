@@ -13,7 +13,7 @@ constructor(private productService: ProductService) {}
     pageTitle = 'Product List';
     imageWidth = 50;
     imageMargin: number = 2;
-    showImage: boolean = false;
+    showImage: boolean = true;
     errorMessage: string = '';
     sub!: Subscription;
     private _listFilter: string = '';
