@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { ProductDetailComponent } from './products/product-detail.component';
+import { ProductDetailGuard } from './products/product-detail.guard';
 import { ProductionListComponent } from './products/product-list.component';
 import { ReplaceStringWithStringPipe } from './shared/replace-string-with-string.pipe';
 import { StarComponent } from './shared/star.component';
@@ -24,7 +25,11 @@ import { StarComponent } from './shared/star.component';
     FormsModule,
     RouterModule.forRoot([
       { path: 'products', component: ProductionListComponent },
-      { path: 'products/:id', component: ProductDetailComponent },
+      {
+        path: 'products/:id',
+        canActivate: [ProductDetailGuard],
+        component: ProductDetailComponent
+      },
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
