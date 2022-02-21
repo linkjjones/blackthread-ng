@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
-import { IProduct } from "./product";
+import { IProduct } from "../models/product";
 import { ProductService } from "./product.service";
 
 @Component({
@@ -17,7 +17,7 @@ constructor(private productService: ProductService) {}
     errorMessage: string = '';
     sub!: Subscription;
     private _listFilter: string = '';
-    
+
     get listFilter(): string {
         return this._listFilter;
     }
@@ -33,11 +33,11 @@ constructor(private productService: ProductService) {}
     ngOnInit(): void {
         // get data
         this.sub = this.productService.getProducts().subscribe({
-            next: products => {
+            next: (products: any) => {
                 this.products = products;
                 this.filteredProducts = this.products;
             },
-            error: err => this.errorMessage = err
+            error: (err: any) => this.errorMessage = err
         });
     }
 
@@ -57,5 +57,9 @@ constructor(private productService: ProductService) {}
 
     onRatingClicked(message: string): void {
         this.pageTitle = 'Product List ' + message;
+    }
+
+    addProduct(): void {
+        this.productService.addProduct();
     }
 }

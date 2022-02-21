@@ -5,12 +5,14 @@ import { ReplaceStringWithStringPipe } from '../shared/replace-string-with-strin
 import { RouterModule } from '@angular/router';
 import { ProductDetailGuard } from './product-detail.guard';
 import { SharedModule } from '../shared/shared.module';
+import { ProductAddEditComponent } from './product-add-edit.component';
 
 @NgModule({
   declarations: [
     ProductListComponent,
     ProductDetailComponent,
     ReplaceStringWithStringPipe,
+    ProductAddEditComponent
   ],
   imports: [
     RouterModule.forChild([
@@ -21,7 +23,7 @@ import { SharedModule } from '../shared/shared.module';
         component: ProductDetailComponent
       },
     ]),
-    SharedModule
+    SharedModule,
   ]
 })
 export class ProductModule { }
