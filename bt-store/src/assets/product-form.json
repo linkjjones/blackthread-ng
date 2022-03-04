@@ -1,0 +1,79 @@
+{
+    "controls": [
+        {
+            "name": "productId",
+            "label": "ID",
+            "value": "",
+            "type": "number",
+            "disabled": true,
+            "validators": {}
+        },
+        {
+            "name": "productName",
+            "label": "Product Name",
+            "value": "",
+            "type": "text",
+            "validators": {
+                "required": true,
+                "minLength": 2
+            }
+        },
+        {
+            "name": "productCode",
+            "label": "Product Code",
+            "value": "",
+            "type": "text",
+            "formText": "xxx-000",
+            "validators": {
+                "required": true,
+                "minLength": 6
+            }
+        },
+        {
+            "name": "releaseDate",
+            "label": "Release Date",
+            "value": "",
+            "type": "text",
+            "formText": "The date which this item is released in this store.",
+            "validators": {
+                "minLength": 10
+            }
+        },
+        {
+            "name": "description",
+            "label": "Description",
+            "value": "",
+            "type": "textarea",
+            "formText": "A visual description with dimensions and specifications.",
+            "validators": {
+                "required": true,
+                "minLength": 10
+            }
+        },
+        {
+            "name": "price",
+            "label": "Price",
+            "value": "",
+            "type": "number",
+            "validators": {
+                "min": 0.04
+            }
+        },
+        {
+            "name": "starRating",
+            "label": "Rating",
+            "value": "",
+            "type": "number",
+            "validators": {}
+        },
+        {
+            "name": "imgeUrl",
+            "label": "Image URL",
+            "value": "",
+            "type": "text",
+            "validators": {
+                "minLength": 5
+            }
+        }
+    ]
+}

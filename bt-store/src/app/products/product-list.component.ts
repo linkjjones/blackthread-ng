@@ -1,5 +1,7 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
+import { JsonFormData } from "../models/json-form-data";
 import { IProduct } from "../models/product";
 import { ProductService } from "./product.service";
 
@@ -8,41 +10,57 @@ import { ProductService } from "./product.service";
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-constructor(private productService: ProductService) {}
+    public formData!: JsonFormData;
     
     pageTitle = 'Product List';
     imageWidth = 50;
     imageMargin: number = 2;
     showImage: boolean = true;
     errorMessage: string = '';
-    sub!: Subscription;
+    productSub!: Subscription;
+    formDataSub!: Subscription;
     private _listFilter: string = '';
-
-    get listFilter(): string {
-        return this._listFilter;
-    }
-    set listFilter(value: string) {
-        this._listFilter = value;
-        console.log('in setter: ', value);
-        this.filteredProducts = this.performFilter(value);
-    }
-
+    
     filteredProducts: IProduct[] = [];
     products: IProduct[] = [];
 
+    constructor(
+        private productService: ProductService,
+        private http: HttpClient
+    ) {}
+
     ngOnInit(): void {
-        // get data
-        this.sub = this.productService.getProducts().subscribe({
+        // get product data
+        this.productSub = this.productService.getProducts().subscribe({
             next: (products: any) => {
                 this.products = products;
                 this.filteredProducts = this.products;
             },
             error: (err: any) => this.errorMessage = err
         });
+
+        // get form data
+        this.formDataSub = this.productService.getFormData().subscribe({
+            next: (data: any) => {
+                this.formData = data;
+            },
+            error: (err: any) => this.errorMessage = err
+        });
+
+        console.log(this.productService.getFormData());
+    }
+
+    get listFilter(): string {
+        return this._listFilter;
+    }
+    set listFilter(value: string) {
+        this._listFilter = value;
+        // console.log('in setter: ', value);
+        this.filteredProducts = this.performFilter(value);
     }
 
     ngOnDestroy(): void {
-        this.sub.unsubscribe();
+        this.productSub.unsubscribe();
     }
     
     performFilter(filterBy: string): IProduct[] {

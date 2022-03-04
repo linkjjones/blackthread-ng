@@ -6,13 +6,15 @@ import { RouterModule } from '@angular/router';
 import { ProductDetailGuard } from './product-detail.guard';
 import { SharedModule } from '../shared/shared.module';
 import { ProductAddEditComponent } from './product-add-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     ProductListComponent,
     ProductDetailComponent,
     ReplaceStringWithStringPipe,
-    ProductAddEditComponent
+    ProductAddEditComponent,
   ],
   imports: [
     RouterModule.forChild([
@@ -24,6 +26,8 @@ import { ProductAddEditComponent } from './product-add-edit.component';
       },
     ]),
     SharedModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class ProductModule { }

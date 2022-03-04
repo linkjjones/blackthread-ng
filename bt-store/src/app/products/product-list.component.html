@@ -10,14 +10,6 @@
                     [(ngModel)]='listFilter'>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <button class="btn btn-primary"
-                (click)='addProduct()'>
-                Addd New Test Product
-                </button>
-            </div>
-        </div>
         <!-- sdf -->
         <div class="row">
             <div class="col-md-6">
@@ -67,6 +59,13 @@
                 </tbody>
             </table>            
         </div>
+        <!-- Test Form Data -->
+        <div class="row">
+            <div class="col-md-6">
+                <pm-product-add-edit [jsonFormData]="formData"></pm-product-add-edit>
+            </div>
+        </div>
+        <!-- End Test Form Data -->
     </div>
 
 </div>
