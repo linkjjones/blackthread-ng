@@ -89,6 +89,7 @@ export class ProductAddEditComponent implements OnChanges {
     // const formEntryData = this.productForm.value;
     if (this.productForm.valid) {
       this.productService.addProduct(this.productForm.value);
+      this.productForm.reset();
     } else {
       alert("There is an anvalid input. Try again.");
     }
