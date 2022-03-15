@@ -31,6 +31,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         // get product data
+        this.getProductData();
+        // get form data
+        this.getFormData();
+    }
+
+    getProductData(): void {
         this.productSub = this.productService.getProducts().subscribe({
             next: (products: any) => {
                 this.products = products;
@@ -38,16 +44,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
             },
             error: (err: any) => this.errorMessage = err
         });
+    }
 
-        // get form data
+    getFormData(): void {
         this.formDataSub = this.productService.getFormData().subscribe({
             next: (data: any) => {
                 this.formData = data;
             },
             error: (err: any) => this.errorMessage = err
         });
-
-        console.log(this.productService.getFormData());
     }
 
     get listFilter(): string {

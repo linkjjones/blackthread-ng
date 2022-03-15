@@ -3,9 +3,11 @@ import {
   Component,
   Input,
   OnChanges,
+  Output,
   SimpleChanges
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EventEmitter } from '@angular/core';
 import { jsonFormControls, JsonFormData } from '../models/json-form-data';
 import { ProductService } from './product.service';
 
@@ -17,6 +19,7 @@ import { ProductService } from './product.service';
 })
 export class ProductAddEditComponent implements OnChanges {
   @Input() jsonFormData!: JsonFormData;
+  @Output() getProductData: EventEmitter<any> = new EventEmitter();
   public productForm: FormGroup = this.fb.group({})
 
   constructor(
@@ -90,6 +93,7 @@ export class ProductAddEditComponent implements OnChanges {
     if (this.productForm.valid) {
       this.productService.addProduct(this.productForm.value);
       this.productForm.reset();
+      this.getProductData.emit;
     } else {
       alert("There is an anvalid input. Try again.");
     }

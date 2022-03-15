@@ -62,7 +62,7 @@
         <!-- Test Form Data -->
         <div class="row">
             <div class="col-md-6">
-                <pm-product-add-edit [jsonFormData]="formData"></pm-product-add-edit>
+                <pm-product-add-edit (getProductData)="getProductData()" [jsonFormData]="formData"></pm-product-add-edit>
             </div>
         </div>
         <!-- End Test Form Data -->
