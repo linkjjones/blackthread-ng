@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http"
-import { Observable, tap, throwError } from "rxjs";
+import { Observable, Subscription, tap, throwError } from "rxjs";
 import { catchError } from "rxjs";
 import { IProduct } from "../models/product";
 import { environment } from 'src/environments/environment';
@@ -16,9 +16,19 @@ export class ProductService {
     private productUrl = 'api/products/products.json';
     fsApp = initializeApp(environment.firebase);
     fs = getFirestore(this.fsApp);
+    formDataSub!: Subscription;
+    public formData!: JsonFormData;
+    errorMessage: string = '';
 
     constructor(
-        private http: HttpClient) {}
+        private http: HttpClient) {
+            this.formDataSub = this.getFormData().subscribe({
+                next: (data: any) => {
+                    this.formData = data;
+                },
+                error: (err: any) => this.errorMessage = err
+            });
+        }
 
     getProducts(): Observable<IProduct[]> {
         return this.http.get<IProduct[]>(this.productUrl);
@@ -56,8 +66,12 @@ export class ProductService {
         // console.log('from castValuesToProperType: {0}', formData);
         if (o){
             for (let [key, value] of Object.entries(o)) {
-                // let controls[] = formData.controls;
-                
+                let controls = this.formData.controls;
+                let controlType = controls.find(obj => obj.name === key)?.type;
+                if (controlType === 'number' && value != ''){
+                    o[key] = parseFloat(o[key]);
+                    console.log(o.name + ': ' +o[key]);
+                }
             }
           }
     }

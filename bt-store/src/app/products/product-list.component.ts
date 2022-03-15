@@ -10,7 +10,6 @@ import { ProductService } from "./product.service";
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-    public formData!: JsonFormData;
     
     pageTitle = 'Product List';
     imageWidth = 50;
@@ -20,6 +19,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     productSub!: Subscription;
     formDataSub!: Subscription;
     private _listFilter: string = '';
+    public formData!: JsonFormData;
     
     filteredProducts: IProduct[] = [];
     products: IProduct[] = [];
