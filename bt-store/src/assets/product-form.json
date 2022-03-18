@@ -67,7 +67,7 @@
             "validators": {}
         },
         {
-            "name": "imgeUrl",
+            "name": "imageUrl",
             "label": "Image URL",
             "value": "",
             "type": "text",

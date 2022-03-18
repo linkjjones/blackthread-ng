@@ -8,7 +8,7 @@
         "description": "Basketball shoes that make you jump higher and run faster.",
         "price": 144000.07,
         "starRating": 5.0,
-        "imageUrl": "assets/images/hot_sneaks.jpg"
+        "imageUrl": "/assets/images/hot_sneaks.jpg"
     },
     {
         "productId": 3,
@@ -18,6 +18,6 @@
         "description": "Nice cool jumper",
         "price": 70.70,
         "starRating": 4.8,
-        "imageUrl": "assets/images/jumper.jpg"
+        "imageUrl": "/assets/images/jumper.jpg"
     }
 ]

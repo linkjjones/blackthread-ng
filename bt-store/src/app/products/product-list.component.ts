@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { JsonFormData } from "../models/json-form-data";
-import { IProduct } from "../models/product";
+// import { IProduct } from "../models/product";
 import { ProductService } from "./product.service";
 
 @Component({
@@ -18,11 +18,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
     errorMessage: string = '';
     productSub!: Subscription;
     formDataSub!: Subscription;
+    productListSub!: Subscription;
     private _listFilter: string = '';
     public formData!: JsonFormData;
-    
-    filteredProducts: IProduct[] = [];
-    products: IProduct[] = [];
+    filteredProducts: any;
+    products: any[] = [];
 
     constructor(
         private productService: ProductService,
@@ -31,20 +31,33 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         // get product data
-        this.getProductData();
+        // this.getProductData();
+        this.getProductsAll();
         // get form data
         this.getFormData();
     }
 
-    getProductData(): void {
-        this.productSub = this.productService.getProducts().subscribe({
-            next: (products: any) => {
-                this.products = products;
+    getProductsAll(): void {
+        this.productService.getProductsAll
+            .then((data: any) => {
+                this.products = data;
                 this.filteredProducts = this.products;
-            },
-            error: (err: any) => this.errorMessage = err
-        });
+            })
+            .catch((data) => {
+                console.log("Error loading data. Please contact your administrator.")
+            })
     }
+
+    // get data from json file 
+    // getProductData(): void {
+    //     this.productSub = this.productService.getProducts().subscribe({
+    //         next: (products: any) => {
+    //             this.products = products;
+    //             this.filteredProducts = this.products;
+    //         },
+    //         error: (err: any) => this.errorMessage = err
+    //     });
+    // }
 
     getFormData(): void {
         this.formDataSub = this.productService.getFormData().subscribe({
@@ -68,9 +81,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.productSub.unsubscribe();
     }
     
-    performFilter(filterBy: string): IProduct[] {
+    performFilter(filterBy: string): any[] {
         filterBy = filterBy.toLowerCase();
-        return this.products.filter((product: IProduct) => 
+        return this.products.filter((product: any) => 
             product.productName.toLowerCase().includes(filterBy));
     }
 
@@ -79,7 +92,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }
 
     onRatingClicked(message: string): void {
-        this.pageTitle = 'Product List ' + message;
+        this.pageTitle = 'Product List' + message;
     }
 
     addProduct(): void {

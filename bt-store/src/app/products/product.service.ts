@@ -5,8 +5,8 @@ import { catchError } from "rxjs";
 import { IProduct } from "../models/product";
 import { environment } from 'src/environments/environment';
 import { initializeApp } from "firebase/app"
-import { getFirestore } from "firebase/firestore"
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, getFirestore } from "firebase/firestore"
+import { getDocs, addDoc } from "firebase/firestore"; 
 import { JsonFormData } from "../models/json-form-data";
 
 @Injectable({
@@ -19,20 +19,28 @@ export class ProductService {
     formDataSub!: Subscription;
     public formData!: JsonFormData;
     errorMessage: string = '';
+    public productData: any = [];
 
-    constructor(
-        private http: HttpClient) {
+    constructor(private http: HttpClient) {
             this.formDataSub = this.getFormData().subscribe({
                 next: (data: any) => {
                     this.formData = data;
                 },
                 error: (err: any) => this.errorMessage = err
             });
-        }
-
-    getProducts(): Observable<IProduct[]> {
-        return this.http.get<IProduct[]>(this.productUrl);
     }
+
+    // getProducts(): Observable<IProduct[]> {
+    //     return this.http.get<IProduct[]>(this.productUrl);
+    // }
+
+    getProductsAll = new Promise(async (resolve) => {
+        const querySnapshot = await getDocs(collection(this.fs, "bt-products"));
+        querySnapshot.forEach((doc) => {
+            this.productData.push(doc.data());
+        });
+        resolve(this.productData);
+    })
 
     // use pipe to console log the data
     // getProducts(): Observable<IProduct[]> {
@@ -46,7 +54,9 @@ export class ProductService {
         return this.http.get<FormData>('/assets/product-form.json');
     }
 
-    async addProduct(formEntryData?: any): Promise<void> {
+    async addProduct(formEntryData?: any): Promise<string> {
+        console.log(formEntryData);
+        let msg = "Error adding document: ";
         try {
             // cleanup data
             const formEntryDataClean: any = {};
@@ -54,23 +64,22 @@ export class ProductService {
             this.castValuesToProperType(formEntryDataClean);
             // send data to firestore
             const docRef = await addDoc(collection(this.fs, "bt-products"), formEntryDataClean);
-            console.log("Document written with ID: ", docRef.id);
+            msg = "Document written with ID: ", docRef;
           } catch (e) {
-            console.error("Error adding document: ", e);
+            msg += e;
         }
+        console.log(msg);
+        return msg;
     }
 
-    // TODO: read in json file to find correct type for casting
+    // Cast values to correct type based on formData
     castValuesToProperType(o: any) {
-        // const formData = this.http.get<FormData>('/assets/product-form.json');
-        // console.log('from castValuesToProperType: {0}', formData);
         if (o){
             for (let [key, value] of Object.entries(o)) {
                 let controls = this.formData.controls;
                 let controlType = controls.find(obj => obj.name === key)?.type;
                 if (controlType === 'number' && value != ''){
                     o[key] = parseFloat(o[key]);
-                    console.log(o.name + ': ' +o[key]);
                 }
             }
           }
@@ -84,6 +93,6 @@ export class ProductService {
             errorMessage = `An error occurred: ${err.error.message}`;
         }
         console.log(errorMessage);
-        return throwError(errorMessage);
+        return throwError(() => new Error(errorMessage));
     }
 }
