@@ -1,5 +1,15 @@
 # BtStore
 
+## TODO:
+### ProductList: 
+- Add edit button
+  - Fill form with item data
+- Add delete button
+### Other:
+- ProductDetailGuard: route to error page
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
 
 ## Development server

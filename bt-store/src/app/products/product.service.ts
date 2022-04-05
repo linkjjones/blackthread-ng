@@ -85,13 +85,13 @@ export class ProductService {
     //     );
     // }
 
-    async addProduct(formEntryData?: any): Promise<string> {
+    async addProduct(formEntryDataIn?: any): Promise<string> {
         // console.log(formEntryData);
         let msg = "Error adding document: ";
         try {
             // cleanup data
             const formEntryData: any = {};
-            Object.assign(formEntryData, formEntryData);
+            Object.assign(formEntryData, formEntryDataIn);
             this.castValuesToProperType(formEntryData);
             // send data to firestore
             const docRef = await addDoc(collection(this.fs, "bt-products"), formEntryData);

@@ -1,4 +1,3 @@
-<!-- TODO: use bootstrap to make this pretty  -->
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <div class="mb-3" *ngFor="let control of jsonFormData?.controls">
         <label class="form-label">{{ control.label }}</label>
