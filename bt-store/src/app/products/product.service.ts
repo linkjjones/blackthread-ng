@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http"
-import { Observable, Subscription, tap, throwError } from "rxjs";
+import { Observable, of, Subscriber, Subscription, tap, throwError } from "rxjs";
 import { catchError } from "rxjs";
 import { IProduct } from "../models/product";
 import { environment } from 'src/environments/environment';
 import { initializeApp } from "firebase/app"
-import { collection, getFirestore } from "firebase/firestore"
-import { getDocs, addDoc } from "firebase/firestore"; 
+import { getFirestore, collection, query, where, getDocs, QuerySnapshot, snapshotEqual } from "firebase/firestore"
+import { addDoc, doc, onSnapshot } from "firebase/firestore"; 
 import { JsonFormData } from "../models/json-form-data";
 
 @Injectable({
@@ -17,30 +17,65 @@ export class ProductService {
     fsApp = initializeApp(environment.firebase);
     fs = getFirestore(this.fsApp);
     formDataSub!: Subscription;
+    productDataSub!: Subscription;
     public formData!: JsonFormData;
     errorMessage: string = '';
     public productData: any = [];
-
+    
     constructor(private http: HttpClient) {
-            this.formDataSub = this.getFormData().subscribe({
-                next: (data: any) => {
-                    this.formData = data;
-                },
-                error: (err: any) => this.errorMessage = err
-            });
-    }
+        this.formDataSub = this.getFormData().subscribe({
+            next: (data: any) => {
+                this.formData = data;
+            },
+            error: (err: any) => this.errorMessage = err
+        });
 
-    // getProducts(): Observable<IProduct[]> {
-    //     return this.http.get<IProduct[]>(this.productUrl);
+        // subscribe to firestore collection
+        
+    }
+    
+    getFormData(): Observable<FormData> {
+        return this.http.get<FormData>('/assets/product-form.json');
+    }
+        
+    // getProductsAll(): Observable<any[]> {
+    //     const q = query(collection(this.fs, "bt-products"));
+    //     const unsub = onSnapshot(q, (querySnapshot) => {
+    //         const products: any = [];
+    //         products.forEach((product: any) => {
+    //             products.push(product.data())
+    //         });
+    //         this.productData = products;
+    //     });
+    //     return new Observable(subscriber => {
+    //         subscriber.next(this.productData);
+    //     });
     // }
 
-    getProductsAll = new Promise(async (resolve) => {
-        const querySnapshot = await getDocs(collection(this.fs, "bt-products"));
-        querySnapshot.forEach((doc) => {
-            this.productData.push(doc.data());
+    allProducts = new Observable((observer) => {
+        const q = query(collection(this.fs, "bt-products"));
+        onSnapshot(q,(snapshot) => {
+            let products: any = [];
+            snapshot.docs.forEach((doc) => {
+                products.push({...doc.data(), id: doc.id });
+            });
+            this.productData = products;
+            observer.next(this.productData);
         });
-        resolve(this.productData);
-    })
+    });
+
+
+    // getProducts(): Observable<IProduct[]> {
+        //     return this.http.get<IProduct[]>(this.productUrl);
+    // }
+
+    // getProductsAll = new Promise(async (resolve) => {
+    //     const querySnapshot = await getDocs(collection(this.fs, "bt-products"));
+    //     querySnapshot.forEach((doc) => {
+    //         this.productData.push(doc.data());
+    //     });
+    //     resolve(this.productData);
+    // })
 
     // use pipe to console log the data
     // getProducts(): Observable<IProduct[]> {
@@ -50,25 +85,21 @@ export class ProductService {
     //     );
     // }
 
-    getFormData(): Observable<FormData> {
-        return this.http.get<FormData>('/assets/product-form.json');
-    }
-
     async addProduct(formEntryData?: any): Promise<string> {
-        console.log(formEntryData);
+        // console.log(formEntryData);
         let msg = "Error adding document: ";
         try {
             // cleanup data
-            const formEntryDataClean: any = {};
-            Object.assign(formEntryDataClean, formEntryData);
-            this.castValuesToProperType(formEntryDataClean);
+            const formEntryData: any = {};
+            Object.assign(formEntryData, formEntryData);
+            this.castValuesToProperType(formEntryData);
             // send data to firestore
-            const docRef = await addDoc(collection(this.fs, "bt-products"), formEntryDataClean);
+            const docRef = await addDoc(collection(this.fs, "bt-products"), formEntryData);
+            // this.getProductsAll;
             msg = "Document written with ID: ", docRef;
           } catch (e) {
             msg += e;
         }
-        console.log(msg);
         return msg;
     }
 

@@ -26,7 +26,7 @@
             "formText": "xxx-000",
             "validators": {
                 "required": true,
-                "minLength": 6
+                "minLength": 7
             }
         },
         {
@@ -47,7 +47,7 @@
             "formText": "A visual description with dimensions and specifications.",
             "validators": {
                 "required": true,
-                "minLength": 10
+                "minLength": 2
             }
         },
         {
@@ -56,7 +56,7 @@
             "value": "",
             "type": "number",
             "validators": {
-                "min": 0.04
+                "min": 0.00
             }
         },
         {
@@ -72,7 +72,7 @@
             "value": "",
             "type": "text",
             "validators": {
-                "minLength": 5
+                "minLength": 3
             }
         }
     ]
