@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ProductAddEditComponent } from '../products/product-add-edit/product-add-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     ]),
     SharedModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ]
 })
 export class ProductModule { }

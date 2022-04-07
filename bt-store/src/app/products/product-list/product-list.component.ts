@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
 import { JsonFormData } from "../../models/json-form-data";
-// import { IProduct } from "../models/product";
+import { faTrashCan, faEdit } from "@fortawesome/free-regular-svg-icons";
 import { ProductService } from "../product.service";
 
 @Component({
@@ -10,7 +10,9 @@ import { ProductService } from "../product.service";
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-    
+    editIcon = faEdit;
+    trashIcon = faTrashCan;
+
     pageTitle = 'Product List';
     imageWidth = 50;
     imageMargin: number = 2;
@@ -76,6 +78,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }
     
     onRatingClicked(message: string): void {
+        this.pageTitle = 'Product List' + message;
+    }
+
+    onEditClicked(message: string): void {
+        this.pageTitle = 'Product List' + message;
+    }
+
+    onDeleteClicked(message: string): void {
         this.pageTitle = 'Product List' + message;
     }
 

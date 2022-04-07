@@ -56,10 +56,14 @@
                             </pm-star>
                         </td>
                         <td>
-                            <i class="fa-solid fa-pencil"></i>
+                            <a (editClicked)='onEditClicked("edit")'>
+                                <fa-icon [icon]="editIcon"></fa-icon>
+                            </a>
                         </td>
                         <td>
-                            d
+                            <a (deleteClicked)='onDeleteClicked("delete")'>
+                                <fa-icon [icon]="trashIcon"></fa-icon>
+                            </a>
                         </td>
                     </tr>
                 </tbody>
