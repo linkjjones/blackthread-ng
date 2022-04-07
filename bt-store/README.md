@@ -2,9 +2,8 @@
 
 ## TODO:
 ### ProductList: 
-- Add edit button
-  - Fill form with item data
-- Add delete button
+- Fill form with item data on edit button click
+- Delete item on delete button click
 ### Other:
 - ProductDetailGuard: route to error page
 

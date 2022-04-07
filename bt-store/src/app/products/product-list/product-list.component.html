@@ -56,12 +56,12 @@
                             </pm-star>
                         </td>
                         <td>
-                            <a (editClicked)='onEditClicked("edit")'>
+                            <a (editClicked)='onEditClicked(product.productId)'>
                                 <fa-icon [icon]="editIcon"></fa-icon>
                             </a>
                         </td>
                         <td>
-                            <a (deleteClicked)='onDeleteClicked("delete")'>
+                            <a (deleteClicked)='onDeleteClicked(product.productId)'>
                                 <fa-icon [icon]="trashIcon"></fa-icon>
                             </a>
                         </td>

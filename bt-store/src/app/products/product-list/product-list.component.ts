@@ -81,12 +81,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.pageTitle = 'Product List' + message;
     }
 
-    onEditClicked(message: string): void {
-        this.pageTitle = 'Product List' + message;
+    onEditClicked(productId: string): void {
+        this.pageTitle = 'Edit Product ID' + productId;
     }
 
-    onDeleteClicked(message: string): void {
-        this.pageTitle = 'Product List' + message;
+    onDeleteClicked(productId: string): void {
+        this.pageTitle = 'Delete Product ID' + productId;
     }
 
     ngOnDestroy(): void {
