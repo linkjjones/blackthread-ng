@@ -1,0 +1,16 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3" *ngFor="let control of jsonFormData?.controls">
+        <label class="form-label">{{ control.label }}</label>
+        <div *ngIf="control.name === 'productId' && control.value !== ''">{{ control.value }}</div>
+        <input class="form-control" *ngIf="control.name !== 'productId' " 
+            [type]="control.type"
+            [formControlName]="control.name"
+            [value]="control.value"
+        >
+        <div *ngIf="control.formText" class="form-text">
+            {{ control.formText }}
+        </div>
+    </div>
+    <!-- <button class="btn btn-primary" type="submit" [disabled]="!productForm.valid">Save</button> -->
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>

@@ -43,7 +43,7 @@
                                 [style.margin.px]='imageMargin'>
                         </td>
                         <td>
-                            <a [routerLink]="['/products', product.productId]">
+                            <a [routerLink]="['/products', product.id]">
                                 {{product.productName}}
                             </a>
                         </td>
@@ -56,26 +56,19 @@
                             </pm-star>
                         </td>
                         <td>
-                            <a (editClicked)='onEditClicked(product.productId)'>
+                            <a (click)='onEditClicked(product)'>
                                 <fa-icon [icon]="editIcon"></fa-icon>
                             </a>
                         </td>
                         <td>
-                            <a (deleteClicked)='onDeleteClicked(product.productId)'>
+                            <a (click)='onDeleteClicked(product.id)'>
                                 <fa-icon [icon]="trashIcon"></fa-icon>
                             </a>
                         </td>
+                        <td hidden>{{product.id}}</td>
                     </tr>
                 </tbody>
             </table>            
         </div>
-        <!-- Test Form Data -->
-        <div class="row">
-            <div class="col-md-6">
-                <pm-product-add-edit [jsonFormData]="formData"></pm-product-add-edit>
-            </div>
-        </div>
-        <!-- End Test Form Data -->
     </div>
-
 </div>

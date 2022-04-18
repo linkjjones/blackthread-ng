@@ -1,7 +1,8 @@
 # BtStore
 
 ## TODO:
-### ProductList: 
+### ProductList:
+- Extract Form to Add/Edit page
 - Fill form with item data on edit button click
 - Delete item on delete button click
 ### Other:

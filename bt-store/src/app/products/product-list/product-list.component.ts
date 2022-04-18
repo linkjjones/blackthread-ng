@@ -4,6 +4,7 @@ import { Observable, Subscription } from "rxjs";
 import { JsonFormData } from "../../models/json-form-data";
 import { faTrashCan, faEdit } from "@fortawesome/free-regular-svg-icons";
 import { ProductService } from "../product.service";
+import { doc } from "firebase/firestore";
 
 @Component({
     templateUrl: './product-list.component.html',
@@ -18,12 +19,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
     imageMargin: number = 2;
     showImage: boolean = true;
     errorMessage: string = '';
-    productSub!: Subscription;
     formDataSub!: Subscription;
     productDataSub!: Subscription;
     private _listFilter: string = '';
     public formData!: JsonFormData;
-    filteredProducts$: any;
+    public selectedProduct!: any;
+    filteredProducts$: any[] = [];
     products: any[] = [];
 
     constructor(
@@ -63,7 +64,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     set listFilter(value: string) {
         this._listFilter = value;
-        // console.log('in setter: ', value);
         this.filteredProducts$ = this.performFilter(value);
     }
 
@@ -81,16 +81,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.pageTitle = 'Product List' + message;
     }
 
-    onEditClicked(productId: string): void {
-        this.pageTitle = 'Edit Product ID' + productId;
+    onEditClicked(product: any): void {
+        this.pageTitle = 'Edit: ' + product.productName;
     }
 
     onDeleteClicked(productId: string): void {
-        this.pageTitle = 'Delete Product ID' + productId;
+        this.pageTitle = 'Delete: ' + productId;
     }
 
     ngOnDestroy(): void {
-        this.productSub.unsubscribe();
         this.formDataSub.unsubscribe();
     }
 }

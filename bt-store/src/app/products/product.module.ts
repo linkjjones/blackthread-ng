@@ -5,7 +5,6 @@ import { ReplaceStringWithStringPipe } from '../shared/replace-string-with-strin
 import { RouterModule } from '@angular/router';
 import { ProductDetailGuard } from './product-detail/product-detail.guard';
 import { SharedModule } from '../shared/shared.module';
-import { ProductAddEditComponent } from '../products/product-add-edit/product-add-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -15,14 +14,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ProductListComponent,
     ProductDetailComponent,
     ReplaceStringWithStringPipe,
-    ProductAddEditComponent,
   ],
   imports: [
     RouterModule.forChild([
       { path: 'products', component: ProductListComponent },
       {
         path: 'products/:id',
-        canActivate: [ProductDetailGuard],
+        // ProductDetailGuard: Guard example
+        // canActivate: [ProductDetailGuard],
         component: ProductDetailComponent
       },
     ]),
