@@ -2,7 +2,7 @@
 
 ## TODO:
 ### ProductList:
-- Extract Form to Add/Edit page
+- Fix Product Detail page
 - Fill form with item data on edit button click
 - Delete item on delete button click
 ### Other:
