@@ -51,6 +51,24 @@ export class ProductService {
 		});
 	});
 
+	getProductById(id: string): Observable<any> {
+		return {
+			product = new Observable((observer) => {
+				const coll = collection(this.fs, "bt-products");
+				const q = query(coll, where("id", "==", id));
+				onSnapshot(q,(snapshot) => {
+					let products: any = [];
+					snapshot.docs.forEach((doc) => {
+						products.push({...doc.data(), id: doc.id });
+						// products.push({...doc.data(), id: doc.id });
+					});
+					this.productData = products;
+					observer.next(this.productData);
+				});
+			});
+		};
+	}
+
 	async addProduct(formEntryDataIn?: any): Promise<string> {
 		// console.log(formEntryData);
 		let msg = "Error adding document: ";

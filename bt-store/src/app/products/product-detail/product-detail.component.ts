@@ -48,10 +48,11 @@ export class ProductDetailComponent implements OnInit {
 		if (!changes['jsonFormData'].firstChange) {
 			this.createForm(this.jsonFormData.controls);
 		}
-
+		
 		// When product data is pushed via productData
 		if (!changes['productData'].currentValue) {
 			console.log('adding selected product to form fields.');
+			console.log('data has changed');
 			console.log(this.productData);
 		}
 	}

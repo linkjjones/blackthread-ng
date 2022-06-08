@@ -18,7 +18,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     imageWidth = 50;
     imageMargin: number = 2;
     showImage: boolean = true;
-    errorMessage: string = '';
+    errorMessage: string = '';@
     formDataSub!: Subscription;
     productDataSub!: Subscription;
     private _listFilter: string = '';
